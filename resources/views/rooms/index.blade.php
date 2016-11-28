@@ -11,7 +11,9 @@
                         @foreach($rooms as $room)
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <a href="#">{{ $room->name }}</a>
+                                    <a href="{{ route('chat.rooms.show', ['id' => $room->id]) }}">
+                                        {{ $room->name }}
+                                    </a>
                                 </li>
                             </ul>
                         @endforeach

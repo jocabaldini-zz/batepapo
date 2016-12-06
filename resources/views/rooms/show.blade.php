@@ -23,9 +23,10 @@
 
                     <div class="panel-footer">
                         <div class="input-group">
-                            <input type="text" class="form-control input-md" placeholder="Digite sua mensagem"/>
+                            <input type="text" class="form-control input-md"
+                                   placeholder="Digite sua mensagem" v-model="content" v-on:keyup.enter="sendMessage"/>
                             <span class="input-group-btn">
-                                <button class="btn btn-success btn-md">Enviar</button>
+                                <button class="btn btn-success btn-md" v-on:click="sendMessage">Enviar</button>
                             </span>
                         </div>
                     </div>
@@ -33,4 +34,10 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('pre-script')
+    <script type="text/javascript">
+        var roomId = "{{ $room->id }}";
+    </script>
 @endsection

@@ -81,6 +81,7 @@
         @yield('content')
     </div>
 
+    @yield('pre-script')
     <!-- Scripts -->
     <script src="/js/app.js"></script>
 </body>

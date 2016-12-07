@@ -19,6 +19,30 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+    <style type="text/css">
+        .chat {
+            padding: 0;
+        }
+
+        .chat li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+        }
+
+        .chat li.left .chat-body {
+            margin-left: 100px;
+        }
+
+        .chat li.right .chat-body {
+            text-align: right;
+            margin-right: 100px;
+        }
+
+        .panel-body {
+            overflow-y: scroll;
+            height: 400px;
+        }
+    </style>
 </head>
 <body>
     <div id="app">

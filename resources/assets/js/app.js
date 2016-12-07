@@ -17,21 +17,43 @@ require('./bootstrap');
 
 const app = new Vue({
     el: '#app',
+    delimiters: ['[[', ']]'],
     data: {
         roomId: roomId,
-        content: ''
+        userId: userId,
+        content: '',
+        users: [],
+        messages: []
     },
     mounted(){
-        Echo.channel(`room.${roomId}`)
+        Echo.join(`room.${roomId}`)
             .listen('SendMessage', (e) => {
-                console.log(e);
-            });
+                this.messages.push(e);
+            })
+            .here((users) => {
+                this.users = users;
+            })
+            .joining((user) => {
+                this.users.push(user);
+                jQuery.notify(`<strong>${user.name}</strong> entrou no chat.`, {allow_dismiss: true})
+            })
+            .leaving((user) => {
+                this.removeUser(user);
+            })
     },
     methods: {
         sendMessage(){
             Vue.http.post(`/chat/rooms/${this.roomId}/message`, {
                 'content': this.content
             });
+        },
+        removeUser(user){
+            var index = this.users.indexOf(user);
+            this.users.splice(index, 1);
+        },
+        createPhoto(email){
+            let a = `http://www.gravatar.com/avatar/${md5(email)}.jpg`;
+            return `http://www.gravatar.com/avatar/${md5(email)}.jpg`;
         }
     }
 });

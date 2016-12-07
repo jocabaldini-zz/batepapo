@@ -6,8 +6,8 @@
             <div class="col-md-2">
                 <h3>Usuários</h3>
                 <ul class="list-group">
-                    <li class="list-group-item">
-                        <a href="#"></a>
+                    <li class="list-group-item" v-for="o in users">
+                        <a href="#">[[ o.name ]]</a>
                     </li>
                 </ul>
             </div>
@@ -17,7 +17,16 @@
 
                     <div class="panel-body">
                         <ul class="chat list-unstyled">
-
+                            <li v-for="o in messages" class="clearfix"
+                                v-bind:class="{left: userId != o.user.id, right: userId == o.user.id}">
+                                <span v-bind:class="{'pull-left': userId != o.user.id, 'pull-right': userId == o.user.id}">
+                                    <img v-bind:src="createPhoto(o.user.email)" class="img-circle"/>
+                                </span>
+                                <div class="chat-body">
+                                    <strong>[[ o.user.name ]]</strong>
+                                    <p>[[ o.message.content ]]</p>
+                                </div>
+                            </li>
                         </ul>
                     </div>
 
@@ -39,5 +48,6 @@
 @section('pre-script')
     <script type="text/javascript">
         var roomId = "{{ $room->id }}";
+        var userId = {{ Auth::user()->id }};
     </script>
 @endsection
